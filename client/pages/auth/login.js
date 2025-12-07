@@ -47,7 +47,7 @@ export default function Login() {
       <NavbarHome />
 
       <div className="min-h-screen flex flex-col justify-center items-center 
-        bg-gradient-to-b from-gray-900 via-black to-gray-900 p-6">
+        bg-linear-to-b from-gray-900 via-black to-gray-900 p-6">
 
         <form
           onSubmit={handleSubmit}
