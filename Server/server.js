@@ -9,6 +9,10 @@ const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
+const cors = require("cors");
+app.use(cors({
+  origin: "https://yourfrontend.com"
+}));
 
 app.use(cors());
 app.use(express.json());
