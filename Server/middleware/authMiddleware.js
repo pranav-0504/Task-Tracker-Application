@@ -14,7 +14,8 @@ const auth = (req, res, next) => {
     const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET);
     req.user = decoded.id;
     next();
-  } catch (err) {
+  } 
+  catch (err) {
     return res.status(401).json({ msg: "Token is invalid" });
   }
 };
