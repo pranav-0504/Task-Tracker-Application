@@ -9,14 +9,13 @@ const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+
 const cors = require("cors");
 app.use(cors({
   origin: "https://task-tracker-application-theta.vercel.app/"
-  // credentials: true,
 }));
-
-app.use(cors());
-app.use(express.json());
 
 connectDB();
 
