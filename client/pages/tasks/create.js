@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../../utils/api";
 import { useRouter } from "next/router";
-import protect from "../../utils/protect";
+import Navbar from "../../components/Navbar";
 
 export default function CreateTask() {
   const router = useRouter();
@@ -19,12 +19,13 @@ export default function CreateTask() {
     router.push("/tasks");
   };
 
+  // AUTH CHECK
   useEffect(() => {
-    protect(router);
+    const token = localStorage.getItem("token");
+    if (!token) router.push("/auth/login");
   }, []);
 
   return (
-
     <>
       <Navbar />
 
@@ -36,7 +37,7 @@ export default function CreateTask() {
             className="border p-2 w-full mb-3"
             placeholder="Title"
             onChange={(e) => setTask({ ...task, title: e.target.value })}
-            />
+          />
 
           <textarea
             className="border p-2 w-full mb-3"
@@ -47,7 +48,7 @@ export default function CreateTask() {
           <select
             className="border p-2 w-full mb-3"
             onChange={(e) => setTask({ ...task, priority: e.target.value })}
-            >
+          >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
@@ -58,7 +59,6 @@ export default function CreateTask() {
           </button>
         </form>
       </div>
-
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import api from "../../../utils/api";
-import protect from "../../utils/protect";
+import Navbar from "../../../components/Navbar";
 
 export default function EditTask() {
   const router = useRouter();
@@ -14,12 +14,17 @@ export default function EditTask() {
     status: "To Do",
   });
 
-  // LOAD TASK DATA
+  // Load task data
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/auth/login");
+      return;
+    }
+
     if (id) {
-      api.get(`/tasks`, { params: { search: "" } }).then((res) => {
-        const t = res.data.find((task) => task._id === id);
-        if (t) setTask(t);
+      api.get(`/tasks/${id}`).then((res) => {
+        setTask(res.data);
       });
     }
   }, [id]);
@@ -30,59 +35,53 @@ export default function EditTask() {
     router.push("/tasks");
   };
 
-  useEffect(() => {
-  protect(router);
-  }, []);
-
   return (
-
     <>
-        <Navbar />
+      <Navbar />
 
-        <div className="min-h-screen p-6">
+      <div className="min-h-screen p-6">
         <h1 className="text-3xl mb-4">Edit Task</h1>
 
         <form onSubmit={submit} className="max-w-md">
-            <input
+          <input
             className="border p-2 w-full mb-3"
             placeholder="Title"
             value={task.title}
             onChange={(e) => setTask({ ...task, title: e.target.value })}
-            />
+          />
 
-            <textarea
+          <textarea
             className="border p-2 w-full mb-3"
             placeholder="Description"
             value={task.description}
             onChange={(e) => setTask({ ...task, description: e.target.value })}
-            />
+          />
 
-            <select
+          <select
             className="border p-2 w-full mb-3"
             value={task.priority}
             onChange={(e) => setTask({ ...task, priority: e.target.value })}
-            >
+          >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
-            </select>
+          </select>
 
-            <select
+          <select
             className="border p-2 w-full mb-3"
             value={task.status}
             onChange={(e) => setTask({ ...task, status: e.target.value })}
-            >
+          >
             <option value="To Do">To Do</option>
             <option value="In Progress">In Progress</option>
             <option value="Done">Done</option>
-            </select>
+          </select>
 
-            <button className="w-full bg-blue-600 text-white p-2 rounded">
+          <button className="w-full bg-blue-600 text-white p-2 rounded">
             Update Task
-            </button>
+          </button>
         </form>
-        </div>
-    
+      </div>
     </>
   );
 }

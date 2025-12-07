@@ -37,6 +37,26 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+
+// 🔥 ADD THIS ROUTE
+// GET SINGLE TASK BY ID
+router.get("/:id", auth, async (req, res) => {
+  try {
+    const task = await Task.findOne({
+      _id: req.params.id,
+      userId: req.user
+    });
+
+    if (!task) {
+      return res.status(404).json({ msg: "Task not found" });
+    }
+
+    res.json(task);
+  } catch (e) {
+    res.status(500).json({ msg: "Error getting task" });
+  }
+});
+
 // UPDATE TASK
 router.put("/:id", auth, async (req, res) => {
   try {

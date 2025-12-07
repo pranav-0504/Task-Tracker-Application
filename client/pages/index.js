@@ -25,12 +25,18 @@ export default function Tasks() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    // If no token → redirect to login
+    if (!token) {
+      router.push("/auth/login");
+      return;
+    }
+
+    // If token exists → load tasks
     loadTasks();
   }, [filters]);
 
-  useEffect(() => {
-    protect(router);
-  }, []);
 
   return (
     <>

@@ -2,22 +2,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import api from "../../utils/api";
-
 import Navbar from "../../components/Navbar";
-import protect from "../../utils/protect";
-
-// export default function Home() {
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     router.replace("/tasks");
-//   }, []);
-
-//   return null; 
-// }
-
 
 export default function Tasks() {
+
+  const router = useRouter();  // IMPORTANT
+
   const [tasks, setTasks] = useState([]);
   const [filters, setFilters] = useState({
     status: "",
@@ -31,13 +21,19 @@ export default function Tasks() {
     setTasks(res.data);
   };
 
+  // AUTH + LOAD TASKS
   useEffect(() => {
+    const token = typeof window !== "undefined" 
+      ? localStorage.getItem("token") 
+      : null;
+
+    if (!token) {
+      router.push("/auth/login");
+      return;
+    }
+
     loadTasks();
   }, [filters]);
-
-  useEffect(() => {
-    protect(router);
-  }, []);
 
   return (
     <>
@@ -101,4 +97,3 @@ export default function Tasks() {
     </>
   );
 }
-// */

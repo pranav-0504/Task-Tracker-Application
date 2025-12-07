@@ -11,5 +11,3 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
-
-// https://github.com/pranav-0504/Task-Tracker-Application.git
