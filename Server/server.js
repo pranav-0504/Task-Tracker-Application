@@ -12,6 +12,7 @@ const app = express();
 const cors = require("cors");
 app.use(cors({
   origin: "https://task-tracker-application-theta.vercel.app/"
+  credentials: true
 }));
 
 app.use(cors());
