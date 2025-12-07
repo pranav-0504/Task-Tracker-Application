@@ -38,7 +38,6 @@ router.get("/", auth, async (req, res) => {
 });
 
 
-// 🔥 ADD THIS ROUTE
 // GET SINGLE TASK BY ID
 router.get("/:id", auth, async (req, res) => {
   try {

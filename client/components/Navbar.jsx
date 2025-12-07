@@ -5,7 +5,7 @@ export default function Navbar() {
 
   const logout = () => {
     localStorage.removeItem("token");
-    router.push("/auth/login");
+    router.push("/");
   };
 
   return (
@@ -19,13 +19,14 @@ export default function Navbar() {
 
       <div className="flex gap-4">
         <button
-          className="hover:underline"
+          className="hover:underline cursor-pointer hover:bg-blue-700 transition"
           onClick={() => router.push("/tasks/create")}
         >
-          New Task
+          Add A New Task 
         </button>
 
-        <button className="hover:underline" onClick={logout}>
+        <button className="hover:underline cursor-pointer" 
+            onClick={logout}>
           Logout
         </button>
       </div>

@@ -40,17 +40,18 @@ export default function Tasks() {
       <Navbar />
 
       <div className="p-6">
+      
         <h1 className="text-3xl font-semibold mb-4">My Tasks</h1>
 
         <div className="flex gap-2 mb-4">
           <select
-            className="border p-2"
+            className="border p-2 text-white bg-black"
             onChange={(e) => setFilters({ ...filters, status: e.target.value })}
           >
-            <option value="">Filter by status</option>
-            <option value="To Do">To Do</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Done">Done</option>
+            <option className="text-black bg-white" value="">Filter by status</option>
+            <option className="text-black bg-white" value="To Do">To Do</option>
+            <option className="text-black bg-white" value="In Progress">In Progress</option>
+            <option className="text-black bg-white" value="Done">Done</option>
           </select>
 
           <input
@@ -75,7 +76,8 @@ export default function Tasks() {
               <div className="flex gap-2">
                 <button
                   onClick={() => router.push(`/tasks/edit/${t._id}`)}
-                  className="px-3 py-1 bg-yellow-500 text-white rounded"
+                  // className="px-3 py-1 bg-yellow-500 text-white rounded cursor-pointer"
+                  className="px-3 py-1 bg-blue-500 text-white rounded cursor-pointer transition-transform duration-300 transform hover:scale-155 hover:bg-blue-400 "
                 >
                   Edit
                 </button>
@@ -85,7 +87,8 @@ export default function Tasks() {
                     await api.delete(`/tasks/${t._id}`);
                     loadTasks();
                   }}
-                  className="px-3 py-1 bg-red-600 text-white rounded"
+                  // className="px-3 py-1 bg-red-600 text-white rounded cursor-pointer"
+                  className="px-3 py-1 bg-red-600 text-white rounded cursor-pointer transition-transform duration-300 transform hover:scale-155 hover:bg-red-500"
                 >
                   Delete
                 </button>

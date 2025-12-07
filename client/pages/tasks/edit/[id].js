@@ -39,48 +39,65 @@ export default function EditTask() {
     <>
       <Navbar />
 
-      <div className="min-h-screen p-6">
-        <h1 className="text-3xl mb-4">Edit Task</h1>
+      <div className="min-h-screen flex flex-col justify-center items-center bg-linear-to-b from-gray-900 via-black to-gray-900 text-center p-6">
+        <div className="w-full max-w-md p-8 rounded-2xl shadow-xl bg-white/10 backdrop-blur-lg border border-white/20">
+          <h1 className="text-4xl font-bold text-center text-white mb-6 tracking-wide">
+            Edit Task
+          </h1>
 
-        <form onSubmit={submit} className="max-w-md">
-          <input
-            className="border p-2 w-full mb-3"
-            placeholder="Title"
-            value={task.title}
-            onChange={(e) => setTask({ ...task, title: e.target.value })}
-          />
+          <form onSubmit={submit}>
+            <input
+              className="w-full p-3 mb-4 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              placeholder="Title"
+              value={task.title}
+              onChange={(e) => setTask({ ...task, title: e.target.value })}
+            />
 
-          <textarea
-            className="border p-2 w-full mb-3"
-            placeholder="Description"
-            value={task.description}
-            onChange={(e) => setTask({ ...task, description: e.target.value })}
-          />
+            <textarea
+              className="w-full p-3 mb-4 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              placeholder="Description"
+              value={task.description}
+              onChange={(e) => setTask({ ...task, description: e.target.value })}
+            />
 
-          <select
-            className="border p-2 w-full mb-3"
-            value={task.priority}
-            onChange={(e) => setTask({ ...task, priority: e.target.value })}
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
+            <select
+              className="w-full p-3 mb-4 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              value={task.priority}
+              onChange={(e) => setTask({ ...task, priority: e.target.value })}
+            >
+              <option className="text-black" value="low">Low</option>
+              <option className="text-black" value="medium">Medium</option>
+              <option className="text-black" value="high">High</option>
+            </select>
 
-          <select
-            className="border p-2 w-full mb-3"
-            value={task.status}
-            onChange={(e) => setTask({ ...task, status: e.target.value })}
-          >
-            <option value="To Do">To Do</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Done">Done</option>
-          </select>
+            <select
+              className="w-full p-3 mb-4 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              value={task.status}
+              onChange={(e) => setTask({ ...task, status: e.target.value })}
+            >
+              <option value="To Do">To Do</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Done">Done</option>
+            </select>
 
-          <button className="w-full bg-blue-600 text-white p-2 rounded">
-            Update Task
-          </button>
-        </form>
+            <div className="flex gap-4">
+              <button
+                type="submit"
+                className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition-all duration-200 cursor-pointer"
+              >
+                Save
+              </button>
+
+              <button
+                type="button"
+                onClick={() => router.push("/tasks")}
+                className="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold transition-all duration-200 cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

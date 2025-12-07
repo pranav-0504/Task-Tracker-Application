@@ -1,100 +1,38 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
-import api from "../utils/api";
-
 import Navbar from "../components/Navbar";
-import protect from "../utils/protect";
 
-export default function Tasks() {
-
-  const router = useRouter(); 
-
-  const [tasks, setTasks] = useState([]);
-  const [filters, setFilters] = useState({
-    status: "",
-    search: ""
-  });
-
-  const loadTasks = async () => {
-    const res = await api.get("/tasks", {
-      params: filters
-    });
-    
-    setTasks(res.data);
-  };
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    // If no token → redirect to login
-    if (!token) {
-      router.push("/auth/login");
-      return;
-    }
-
-    // If token exists → load tasks
-    loadTasks();
-  }, [filters]);
-
+export default function Home() {
+  const router = useRouter();
 
   return (
     <>
-      <Navbar />
 
-      <div className="p-6">
-        <h1 className="text-3xl font-semibold mb-4">My Tasks</h1>
+      <div className="min-h-screen flex flex-col justify-center items-center 
+      bg-linear-to-b from-gray-900 via-black to-gray-900 text-center p-6">
 
-        <div className="flex gap-2 mb-4">
-          <select
-            className="border p-2"
-            onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+        <h1 className="text-4xl font-bold mb-4">Task Tracker App</h1>
+
+        <p className="text-lg text-gray-600 mb-6">
+          Manage your tasks efficiently and stay productive.
+        </p>
+
+        <div className="flex gap-4">
+          <button
+            className="px-6 py-2 bg-blue-600 text-white rounded 
+             cursor-pointer hover:bg-blue-700 transition"
+            onClick={() => router.push("/auth/signup")}
+            
           >
-            <option value="">Filter by status</option>
-            <option value="To Do">To Do</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Done">Done</option>
-          </select>
+            Sign Up
+          </button>
 
-          <input
-            className="border p-2"
-            placeholder="Search"
-            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-          />
-        </div>
-
-        <div className="grid gap-3">
-          {tasks.map((t) => (
-            <div
-              key={t._id}
-              className="p-4 border rounded flex justify-between items-center"
-            >
-              <div>
-                <h2 className="font-bold">{t.title}</h2>
-                <p>{t.description}</p>
-                <p className="text-sm text-gray-500">{t.status}</p>
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  onClick={() => router.push(`/tasks/edit/${t._id}`)}
-                  className="px-3 py-1 bg-yellow-500 text-white rounded"
-                >
-                  Edit
-                </button>
-
-                <button
-                  onClick={async () => {
-                    await api.delete(`/tasks/${t._id}`);
-                    loadTasks();
-                  }}
-                  className="px-3 py-1 bg-red-600 text-white rounded"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
+          <button
+            className="px-6 py-2 bg-green-600 text-white rounded 
+             cursor-pointer hover:bg-green-700 transition"
+            onClick={() => router.push("/auth/login")}
+          >
+            Login
+          </button>
         </div>
       </div>
     </>
