@@ -12,7 +12,7 @@ router.post("/", auth, async (req, res) => {
   try {
     const task = await Task.create({
       ...req.body,
-      userId: req.user
+      userId: req.user              //! Links the task to the logged-in user
     });
     
     res.json(task);
@@ -30,16 +30,21 @@ router.get("/", auth, async (req, res) => {
     const query = { userId: req.user };
 
     if (status) query.status = status;
-
     if (search) {
+      //! Search uses mongo db regex for case insensitive search in title
       query.title = { $regex: search, $options: "i" };
     }
 
     const tasks = await Task.find(query);
+    
+    // ! Sends the task list to the frontend
     res.json(tasks);
-  } catch (e) {
+  } 
+
+  catch (e) {
     res.status(500).json({ msg: "Error fetching tasks" });
   }
+
 });
 
 
@@ -71,7 +76,8 @@ router.put("/:id", auth, async (req, res) => {
     );
 
     res.json(updated);
-  } catch (e) {
+  } 
+  catch (e) {
     res.status(500).json({ msg: "Update error" });
   }
 });
@@ -85,7 +91,8 @@ router.delete("/:id", auth, async (req, res) => {
     });
 
     res.json({ msg: "Task removed" });
-  } catch (e) {
+  } 
+  catch (e) {
     res.status(500).json({ msg: "Delete error" });
   }
 });
