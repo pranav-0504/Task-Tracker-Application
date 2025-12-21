@@ -12,7 +12,7 @@ export default function Login() {
     password: ""
   });
 
-  const [error, setError] = useState(""); // 🔥 Error message state
+  const [error, setError] = useState("");         // Error message state
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -31,13 +31,16 @@ export default function Login() {
       const res = await api.post("/auth/login", user);
 
       localStorage.setItem("token", res.data.token);
+      
       router.push("/tasks");
-
-    } catch (err) {
+    } 
+    
+    catch (err) {
       // Backend error handling
       const msg = err.response?.data?.message || "Invalid email or password.";
       setError(msg);
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   };
@@ -64,7 +67,7 @@ export default function Login() {
               border border-red-500 rounded">
               {error}
             </div>
-          )}
+          )}  
 
           <input
             className="w-full p-2 bg-white/20 text-white border border-white/30 

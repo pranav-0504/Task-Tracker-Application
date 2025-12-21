@@ -16,6 +16,7 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
 
     // 🔥 Basic validations
@@ -66,7 +67,7 @@ export default function Signup() {
             Create Account
           </h2>
 
-          {/* 🔥 Error Box */}
+          {/* Error Box */}
           {error && (
             <div className="mb-3 p-2 text-sm text-red-300 bg-red-900/40 
               border border-red-500 rounded">

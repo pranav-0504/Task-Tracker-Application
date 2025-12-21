@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 
+//! This is the landing page with options HOME page "/"
+
 export default function Home() {
   const router = useRouter();
 

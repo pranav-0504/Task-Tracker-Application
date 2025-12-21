@@ -4,6 +4,7 @@ export default function Navbar() {
   const router = useRouter();
 
   const logout = () => {
+    //! Clear token from local storage and redirect to home "/"
     localStorage.removeItem("token");
     router.push("/");
   };

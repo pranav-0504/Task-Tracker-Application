@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import api from "../../utils/api";
 import Navbar from "../../components/Navbar";
 
+// This will be the main tasks page "/tasks" after user succesful login protected route
+
 export default function Tasks() {
 
   const router = useRouter();  // IMPORTANT
@@ -18,6 +20,7 @@ export default function Tasks() {
     const res = await api.get("/tasks", {
       params: filters
     });
+    
     setTasks(res.data);
   };
 
