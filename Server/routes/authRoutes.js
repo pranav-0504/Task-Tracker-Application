@@ -10,14 +10,17 @@ const router = express.Router();
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-
+    
+    //! Will check here if user already exists: User is model imported from ../models/User
     const already = await User.findOne({ email });
     if (already) {
       return res.status(400).json({ msg: "Email already registered" });
     }
 
+    //! Hash Password using bcrypt js:
     const hashed = await bcrypt.hash(password, 10);
 
+    // Now Will create the User:
     const user = await User.create({
       name,
       email,
