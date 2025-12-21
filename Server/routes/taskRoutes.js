@@ -6,13 +6,18 @@ const router = express.Router();
 
 // CREATE TASK
 router.post("/", auth, async (req, res) => {
+
+  //! auth middleware ensures only authenticated users can create tasks
+
   try {
     const task = await Task.create({
       ...req.body,
       userId: req.user
     });
+    
     res.json(task);
-  } catch (e) {
+  } 
+  catch (e) {
     res.status(500).json({ msg: "Error creating task" });
   }
 });

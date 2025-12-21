@@ -12,6 +12,8 @@ const auth = (req, res, next) => {
   try {
     const jwtToken = token.split(" ")[1];
     const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET);
+
+    // req.user will be used in routes to identify the user = user.id from token
     req.user = decoded.id;
     next();
   } 
