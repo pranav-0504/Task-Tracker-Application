@@ -30,9 +30,11 @@ export default function Login() {
 
       const res = await api.post("/auth/login", user);
 
+      //! Local storage me token save krdia hai:
       localStorage.setItem("token", res.data.token);
       
-      router.push("/tasks");
+      //! Now redirect to tasks page: After sucesfully logging in
+      router.push("/tasks");      //? page will direct to tasks/index.js Page (Sucesfull Logged in user)
     } 
     
     catch (err) {

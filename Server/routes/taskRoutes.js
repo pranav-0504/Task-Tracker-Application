@@ -23,6 +23,7 @@ router.post("/", auth, async (req, res) => {
 });
 
 // GET TASKS (with filters + search)
+//! GET/Fetches ALLTASK BY User ID  --> This is for fetching all tasks for the authenticated user with optional filters As well as search.
 router.get("/", auth, async (req, res) => {
   try {
     const { status, search } = req.query;
@@ -47,8 +48,7 @@ router.get("/", auth, async (req, res) => {
 
 });
 
-
-// GET SINGLE TASK BY ID
+// // GET SINGLE TASK BY User ID  --> This is for fetching a single task by its ID for the authenticated user Most Important hai
 router.get("/:id", auth, async (req, res) => {
   try {
     const task = await Task.findOne({
